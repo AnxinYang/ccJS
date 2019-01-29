@@ -36,6 +36,23 @@ function setupElementMethods(element, options) {
     element._eventListeners = new Map();
     element._bound = new Map();
 
+    element.add = function (tag, id, options) {
+        let child = dom.createElement(tag, id, options);
+        return this.addElement(child);
+    };
+    element.addElement = function (child) {
+        this.appendChild(child);
+        return child
+    };
+
+    element.addClass = function (className) {
+        this.classList.add(className);
+        return this;
+    };
+    element.removeClass = function (className) {
+        this.classList.remove(className);
+        return this;
+    }
     element.getAttr = function(key){
         return element.getAttribute(key);
     };
@@ -101,6 +118,11 @@ function setupElementMethods(element, options) {
             this.addEventListener(eventName, eventHandler);
         }
         return self;
+    };
+
+    element.text = function (str) {
+        this.innerText = str;
+        return this;
     };
 
     element._setElement = function(type, key , value){
