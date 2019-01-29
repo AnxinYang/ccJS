@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        main: './src/loader',
+        main: './src/index',
         //worker: './src/worker',
     },
     node: {
