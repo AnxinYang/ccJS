@@ -157,7 +157,8 @@ let highLight = mainContentContainer.add('div')
     });
 let intro = mainContentContainer.add('p')
     .addClass('fade')
-    .text("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich interactive websites and web apps from small to large. ")
+    .text("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich " +
+        "interactive websites and web apps from small to large. ")
     .css({
         fontSize: '20px',
     });
