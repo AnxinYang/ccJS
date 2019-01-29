@@ -156,6 +156,17 @@ function setupElementMethods(element, options) {
         }
         return this;
     }
+
+    element.isInViewport = function (options = {}) {
+        let offsetX = options.offsetX || 0;
+        let offsetY = options.offsetY || 0;
+        let {x, y, width, height} = this.getBoundingClientRect(); //IE not support bottom right
+        let x2 = x + width;
+        let y2 = y + height;
+        let innerWidth = window.innerWidth;
+        let innerHeight = window.innerHeight;
+        return !(x2 <= (0 + offsetX)|| x >= (innerWidth - offsetX) || y2 <= (0 + offsetY) || y >= (innerHeight - offsetY))
+    };
 }
 
 export default dom;

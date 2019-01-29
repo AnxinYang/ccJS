@@ -126,9 +126,29 @@ let mainContentContainer = cc.createElement('div')
         paddingTop: '25vh',
         color: WHITE,
         overflowY: 'auto',
+    })
+    .bind('frame', function () {
+        let doms = cc.select('.fade');
+        for(let i = 0; i < doms.length; i++){
+            let dom = doms[i];
+            let isInViewPort = dom.isInViewport({offsetY: 120});
+            let opacity = +dom.style.opacity;
+            if(opacity > 0 && !isInViewPort){
+                opacity = opacity - 0.05;
+            }
+            if(opacity < 1 && isInViewPort){
+                opacity = opacity + 0.03;
+            }
+            let translateY = 30 - opacity*30;
+            dom.css({
+                opacity: opacity,
+                transform: 'translateY('+ translateY +'px)'
+            })
+        }
     });
 let highLight = mainContentContainer.add('div')
     .text("Let's make data alive")
+    .addClass('fade')
     .css({
         color: WHITE,
         fontWeight: 'bold',
@@ -136,6 +156,7 @@ let highLight = mainContentContainer.add('div')
         textAlign: 'center',
     });
 let intro = mainContentContainer.add('p')
+    .addClass('fade')
     .text("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich interactive websites and web apps from small to large. ")
     .css({
         fontSize: '20px',
@@ -165,6 +186,7 @@ let skillNames = ['HTML5','Javascript', 'CSS3', 'React'];
 let skillColors = ['#e44d26','#eeaf4b', '#0070ba', '#61dafb'];
 skills.forEach(function (icon, idx) {
     let card = skillCardContainer.add('div')
+        .addClass('fade').addClass('fade')
         .css({
             //width: '33%',
             minWidth: '300px',
@@ -210,6 +232,7 @@ let projects = {
 
 companies.forEach(function (companyName, idx) {
     let card = careerContainer.add('div')
+        .addClass('fade')
         .css({
             textAlign: 'center',
             marginBottom: '64px'
@@ -246,7 +269,8 @@ companies.forEach(function (companyName, idx) {
 let footer = mainContentContainer.add('p')
     .text('This website is build by ccJS, a self-implemented Javascript Library.')
     .css({
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: '128px'
     });
 
 mainContainer.addElement(container);
