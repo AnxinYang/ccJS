@@ -36,11 +36,26 @@ function setupElementMethods(element, options) {
     element._eventListeners = new Map();
     element._bound = new Map();
 
+    element.getAttr = function(key){
+        return element.getAttribute(key);
+    };
+
     element.attr = function (key, value) {
         this._setElement('attr', key, value);
         return this;
     };
 
+    element.getData = function(){
+        return this._data;
+    };
+    element.data = function(any){
+        this._data = any;
+        return this;
+    };
+
+    element.getProp = function(key){
+        return element[key];
+    };
     element.prop = function (key, value) {
         this._setElement('prop', key, value);
         return this;
@@ -57,6 +72,13 @@ function setupElementMethods(element, options) {
         this.classList.add('storage_' + key);
         return this;
     };
+    element.unbind = function(key){
+        let self = this;
+        this._bound.delete(key);
+        this.classList.remove('storage_' + key);
+        return this;
+    };
+
     element._react = function(key, value){
         let fn = this._bound.get(key);
         if(fn){

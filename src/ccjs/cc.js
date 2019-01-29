@@ -21,8 +21,9 @@ window.cc = cc = {
         options.NS = true;
         return dom.createElement(tagName, id, options)
     },
-    setValue: function (key, value) {
-        return storage.setValue(key, value, {reset: true})
+    setValue: function (key, value, options = {}) {
+        options.reset = true;
+        return storage.setValue(key, value, options)
     },
     saveArray: function(key, arr = [], idkey){
         if(idkey !== undefined && idkey !== '' && key !== undefined){
@@ -32,8 +33,8 @@ window.cc = cc = {
         }
         return cc.setValue(key, arr);
     },
-    updateValue: function(key, value){
-        return storage.setValue(key, value)
+    updateValue: function(key, value, options = {}){
+        return storage.setValue(key, value, options)
     },
     getValue:  function (key) {
         return storage.getValue(key);
@@ -55,10 +56,12 @@ if(IS_WORKER){
     delete cc.createElement;
     delete cc.createElementNS;
 }else{
+    let last = 0
     let frameTicker = function (timestamp) {
-        cc.setValue('frame', timestamp);
-        console.log(timestamp);
-        raf.requestTimeout(frameTicker, 0)
+        cc.setValue('frame', timestamp, {immediately: true});
+        //console.log(timestamp - last);
+        last = timestamp;
+        raf.requestTimeout(frameTicker, 16)
     };
     frameTicker(0);
 }

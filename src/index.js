@@ -5,16 +5,20 @@ let root = cc.select('#body');
 let test = cc.createElement('div', 'test');
 root.appendChild(test);
 test.css({
-    background: '',
+    background: 'black',
     height: '100vh',
     width: '100vw',
-    transition: '0.3s'
 })
-    .bind('test', function (d) {
+    .data({
+        animationCounter: 0,
+    })
+    .bind('frame', function (d) {
+        let counter = this.getData().animationCounter;
+        if(counter >= 255){
+            this.unbind('frame')
+        }
         this.css({
-            background: d,
-        })
+            background: 'rgba(' + counter + ',' + counter + ',' + counter + ',1)',
+        });
+        this.data({animationCounter:counter+10});
     });
-setTimeout(function () {
-    cc.setValue('test', 'red');
-}, 100);

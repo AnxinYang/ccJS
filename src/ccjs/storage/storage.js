@@ -25,25 +25,29 @@ var storage = {
         let newValue = dataMap.get(key);
 
         if(shouldReact) {
-            let timer = this.timerMap.get(key);
-
-            if (timer) {
-                cc.cancelTimer(timer);
-            }
-
-            timer = cc.setTimer(function () {
-                let doms = document.getElementsByClassName('storage_' + key) || [];
-                for (let i = 0; i < doms.length; i++) {
-                    let dom = doms[i];
-                    dom._react && dom._react(key, newValue);
-                }
-                self.timerMap.delete(key);
-            }, 10);
-
-            this.timerMap.set(key, timer);
+           this.broadcast(key, newValue, options);
         }
 
         return newValue;
+    },
+    broadcast: function(key, newValue, options = {}){
+        let self = this;
+        let timer = this.timerMap.get(key);
+
+        if (timer) {
+            cc.cancelTimer(timer);
+        }
+
+        timer = cc.setTimer(function () {
+            let doms = document.getElementsByClassName('storage_' + key) || [];
+            for (let i = 0; i < doms.length; i++) {
+                let dom = doms[i];
+                dom._react && dom._react(key, newValue);
+            }
+            self.timerMap.delete(key);
+        }, options.immediately? 0: 10);
+
+        this.timerMap.set(key, timer);
     },
     getValue: function (key) {
         return this.dataMap.get(key);
