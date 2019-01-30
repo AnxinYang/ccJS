@@ -303,13 +303,14 @@ function index() {
         })
         .bind('frame', function () {
             let {counter, str} = this.getData();
-            this.innerText = codeBackgroundText.substring(0, counter) + '_';
             this.css({
                 transform: 'translateY(' + (-mainContentContainer.scrollTop/6) + 'px)'
             });
-            counter+=6;
+            counter+=24;
             if(counter >= codeBackgroundText.length){
                 counter = codeBackgroundText.length - 1;
+            }else{
+                this.innerText = codeBackgroundText.substring(0, counter) + '_';
             }
             this.data({counter: counter})
         })
