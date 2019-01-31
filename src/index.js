@@ -135,7 +135,7 @@ function index() {
             let mouseY = e.clientY;
             this.css({
                 transform: 'translate(' + (-(mouseX - centerX) / 100) + 'px,' + (-(mouseY - centerY) / 100) + 'px)'
-            })
+            });
         })
         .bind('frame', function () {
             let doms = cc.select('.fade');
