@@ -1,6 +1,6 @@
 const xhr = {
     ajax: function (params = {}) {
-        let {url, method, data, ref, async, xhr, contentType, noAuth, dataType, processData, cache, noJSON, ajax, done, fail, heavy} = params || {};
+        let {url, method, data, async, xhr, contentType, dataType, done, fail} = params || {};
         let {header, onProgress, beforeSend} = params;
         let request = new XMLHttpRequest();
         request.open((method || 'GET'), url, async === undefined ? true : async);
@@ -10,17 +10,19 @@ const xhr = {
                 request.setRequestHeader(key, header[key]);
             }
         }
-
+        if(cc.getValue('Authorization')){
+            request.setRequestHeader('Authorization', cc.getValue('Authorization'));
+        }
         request.onload = function () {
             if (request.status >= 200 && request.status < 400) {
-                done(request);
-            }else {
-                fail(request)
+                done && done(parseData(request.responseText), request);
+            } else {
+                fail && fail(parseData(request.responseText), request)
             }
         };
 
         request.onerror = function () {
-            fail(request)
+            fail && fail(parseData(request.responseText), request)
         };
 
         request.upload.onprogress = function (e) {
@@ -43,8 +45,15 @@ const xhr = {
 
         request.send(_data);
         return request;
+    },
+};
+
+function parseData(data) {
+    try{
+        return JSON.parse(data || '')
+    }catch (e) {
+        return undefined
     }
 }
-
 
 export default xhr;

@@ -1,6 +1,7 @@
 import dom from './dom/dom';
 import storage from './storage/storage';
 import raf from './common/raf';
+import common from './common/common';
 import xhr from './xhr/xhr';
 
 const IS_WORKER = self.window === undefined;
@@ -8,6 +9,7 @@ const CONTEXT = IS_WORKER ? self : window;
 
 var cc;
 window.cc = cc = {
+    tools: common,
     load: function(addOns = [], options = {}){
 
     },

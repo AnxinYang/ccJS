@@ -10,6 +10,15 @@ common.objectforEach = function(obj,fn){
     }
 };
 
+common.objectAssign = function(target, source){
+    for(let key in source) {
+        if (source.hasOwnProperty(key)) {
+            target[key] = source[key]
+        }
+    }
+    return target;
+};
+
 common.createId = function(){
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)

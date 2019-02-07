@@ -40,6 +40,7 @@ function setupElementMethods(element, options) {
         let child = dom.createElement(tag, id, options);
         return this.addElement(child);
     };
+
     element.addElement = function (child) {
         this.appendChild(child);
         return child
@@ -49,10 +50,12 @@ function setupElementMethods(element, options) {
         this.classList.add(className);
         return this;
     };
+
     element.removeClass = function (className) {
         this.classList.remove(className);
         return this;
-    }
+    };
+
     element.getAttr = function(key){
         return element.getAttribute(key);
     };
@@ -63,8 +66,9 @@ function setupElementMethods(element, options) {
     };
 
     element.getData = function(){
-        return this._data;
+        return this._data
     };
+
     element.data = function(any){
         this._data = any;
         return this;
@@ -73,6 +77,7 @@ function setupElementMethods(element, options) {
     element.getProp = function(key){
         return element[key];
     };
+
     element.prop = function (key, value) {
         this._setElement('prop', key, value);
         return this;
@@ -84,9 +89,11 @@ function setupElementMethods(element, options) {
     };
 
     element.bind = function(key, fn){
-        let self = this;
-        this._bound.set(key, fn);
-        this.classList.add('storage_' + key);
+        if(key) {
+            let self = this;
+            this._bound.set(key, fn);
+            this.classList.add('storage_' + key);
+        }
         return this;
     };
     element.unbind = function(key){
@@ -99,9 +106,12 @@ function setupElementMethods(element, options) {
     element._react = function(key, value){
         let fn = this._bound.get(key);
         if(fn){
-            fn.call(this, value)
+            if(fn.call(this, value, this._data) === false){
+                this.unbind(key)
+            }
         }
     };
+
     element.on  = function(eventName, fn, tag = ''){
         let self = this;
         let eventTag = eventName + tag;
@@ -112,17 +122,32 @@ function setupElementMethods(element, options) {
         }
         if(fn) {
             eventHandler = function (e) {
-                fn.call(self, e);
+                fn.call(self, e, self._data);
             };
             element._eventListeners.set(eventTag, eventHandler);
-            this.addEventListener(eventName, eventHandler);
+            this.addEventListener(eventName, eventHandler, false);
         }
         return self;
     };
 
-    element.text = function (str) {
+    element.content = function (str) {
         this.innerText = str;
         return this;
+    };
+
+    element.removeSelf = function(){
+        this.removeAllChildren();
+        if(this.remove){
+            this.remove()
+        }else{
+            this.parentNode.removeChild(this);
+        }
+    };
+
+    element.removeAllChildren = function(){
+        while (this.firstChild) {
+            this.removeChild(this.firstChild);
+        }
     };
 
     element._setElement = function(type, key , value){
