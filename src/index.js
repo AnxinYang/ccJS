@@ -55,7 +55,7 @@ function index() {
             minWidth: '256px'
         });
     let logo = headerLeft.add('div')
-        .text('A')
+        .content('A')
         .css({
             background: RED,
             fontSize: '64px',
@@ -72,13 +72,13 @@ function index() {
             display: 'inline-block'
         });
     nameContainer.add('span')
-        .text('NXIN YANG')
+        .content('NXIN YANG')
         .css({
             fontSize: '32px',
             display: 'block',
         });
     nameContainer.add('span')
-        .text('Front-End Developer')
+        .content('Front-End Developer')
         .css({
             fontSize: '16px',
             display: 'block'
@@ -157,7 +157,7 @@ function index() {
             }
         });
     let highLight = mainContentContainer.add('div')
-        .text("Let's make data alive")
+        .content("Let's make data alive")
         .addClass('fade')
         .css({
             color: WHITE,
@@ -167,7 +167,7 @@ function index() {
         });
     let intro = mainContentContainer.add('p')
         .addClass('fade')
-        .text("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich " +
+        .content("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich " +
             "interactive websites and web apps from small to large. ")
         .css({
             fontSize: '20px',
@@ -175,7 +175,7 @@ function index() {
 
     let skillContainer = mainContentContainer.add('div');
     let skillTitle = skillContainer.add('div')
-        .text("Skills")
+        .content("Skills")
         .css({
             color: WHITE,
             fontWeight: 'bold',
@@ -213,7 +213,7 @@ function index() {
                 textShadow: skillColors[idx] + ' 0 0 10px'
             });
         let name = card.add('p')
-            .text(skillNames[idx])
+            .content(skillNames[idx])
             .css({
                 fontSize: '32px',
                 fontWeight: 'bold',
@@ -223,7 +223,7 @@ function index() {
 
     let careerContainer = mainContentContainer.add('div');
     let careerTitle = skillContainer.add('div')
-        .text("Career")
+        .content("Career")
         .css({
             color: WHITE,
             fontWeight: 'bold',
@@ -248,7 +248,7 @@ function index() {
                 marginBottom: '64px'
             });
         let company = card.add('div')
-            .text(companyName)
+            .content(companyName)
             .css({
                 fontSize: '32px',
                 fontWeight: 'bold'
@@ -256,19 +256,19 @@ function index() {
 
         let fontSize = '20px';
         let title = card.add('div')
-            .text(titles[idx])
+            .content(titles[idx])
             .css({
                 fontSize: fontSize,
             });
 
         let timeLine = card.add('div')
-            .text(timeLines[idx])
+            .content(timeLines[idx])
             .css({
                 fontSize: fontSize,
             });
         (projects[companyName] || []).forEach(function (project) {
             card.add('div')
-                .text(project)
+                .content(project)
                 .css({
                     fontSize: fontSize,
                 });
@@ -277,7 +277,7 @@ function index() {
     });
 
     let footer = mainContentContainer.add('p')
-        .text('This website is build by ccJS, a self-implemented Javascript Library.')
+        .content('This website is build by ccJS, a self-implemented Javascript Library.')
         .css({
             textAlign: 'center',
             marginTop: '128px'
