@@ -217,7 +217,9 @@ function index() {
             .css({
                 fontSize: '32px',
                 fontWeight: 'bold',
-                textAlign: 'center'
+                textAlign: 'center',
+                color: skillColors[idx],
+                textShadow: skillColors[idx] + ' 0 0 10px'
             })
     });
 
