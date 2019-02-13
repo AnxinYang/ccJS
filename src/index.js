@@ -192,9 +192,9 @@ function index() {
             flexWrap: 'wrap'
         });
 
-    let skills = ['fa-html5', 'fa-js', 'fa-css3-alt', 'fa-react'];
-    let skillNames = ['HTML5', 'Javascript', 'CSS3', 'React'];
-    let skillColors = ['#e44d26', '#eeaf4b', '#0070ba', '#61dafb'];
+    let skills = ['fa-html5', 'fa-js', 'fa-css3-alt', 'fa-react', 'fa-node-js'];
+    let skillNames = ['HTML5', 'Javascript', 'CSS3', 'React', 'NodeJS'];
+    let skillColors = ['#e44d26', '#eeaf4b', '#0070ba', '#61dafb', '#7cb700'];
     skills.forEach(function (icon, idx) {
         let card = skillCardContainer.add('div')
             .addClass('fade').addClass('fade')
