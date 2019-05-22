@@ -120,7 +120,6 @@ function index() {
     });
 
     let mainContentContainer = cc.createElement('div', 'main_content')
-        .addClass('crtText')
         .css({
             height: 'calc(100vh - 100px)',
             padding: '0 12.5%',
@@ -291,6 +290,7 @@ function index() {
     let columnWidth = Math.min(400 , window.innerWidth - 128);
     let columnCount = Math.min(2, Math.floor(window.innerWidth/(columnWidth)));
     let codeBackground = container.add('pre')
+        .addClass('crtTextFast')
         .css({
             textAlign: 'left',
             top: '128px',
