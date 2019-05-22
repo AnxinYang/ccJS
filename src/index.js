@@ -12,6 +12,7 @@ window.addEventListener('resize', function () {
 function index() {
     let root = cc.select('#body');
     let mainContainer = cc.createElement('div', 'test')
+        .addClass('crt')
         .css({
             background: BLACK,
             height: '100vh',
@@ -118,7 +119,8 @@ function index() {
             }, 'style');
     });
 
-    let mainContentContainer = cc.createElement('div')
+    let mainContentContainer = cc.createElement('div', 'main_content')
+        .addClass('crtText')
         .css({
             height: 'calc(100vh - 100px)',
             padding: '0 12.5%',
