@@ -290,7 +290,7 @@ function index() {
     let columnWidth = Math.min(400 , window.innerWidth - 128);
     let columnCount = Math.min(2, Math.floor(window.innerWidth/(columnWidth)));
     let codeBackground = container.add('pre')
-        .addClass('crtTextFast')
+        .addClass('crtText')
         .css({
             textAlign: 'left',
             top: '128px',
