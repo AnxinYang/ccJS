@@ -4,25 +4,105 @@
   background-color: rgba(0, 0, 0, 0.9);
 }
 
+.background-solid-black, .header, .main-container {
+  background-color: #191919;
+}
+
 .background-red {
   background-color: #d63031;
 }
 
 /* BOX-SHADOW */
-.shadow {
-  box-shadow: 0 0 10px 20px rgba(0, 0, 0, 0.9);
+.shadow, .header, .main-container {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
 }
 
-/* FONT COLOR */
+/* FONT */
 .font-red {
   color: #d63031;
 }
 
-.font-white {
-  color: rgba(255, 255, 255, 0.7);
+.font-white, .header {
+  color: white;
+}
+
+.font-black {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.font-size-small {
+  font-size: 16px;
+}
+
+.font-size-medium-small {
+  font-size: 20px;
+}
+
+.font-size-medium {
+  font-size: 32px;
+}
+
+.font-size-medium-large {
+  font-size: 48px;
+}
+
+.font-size-large {
+  font-size: 64px;
 }
 
 /* CRT VFX */
+@keyframes turn-on {
+  0% {
+    transform: scale(1, 0.8) translate3d(0, 0, 0);
+    -webkit-filter: brightness(30);
+    filter: brightness(30);
+    opacity: 1;
+  }
+  3.5% {
+    transform: scale(1, 0.8) translate3d(0, 100%, 0);
+  }
+  3.6% {
+    transform: scale(1, 0.8) translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  9% {
+    transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
+    -webkit-filter: brightness(30);
+    filter: brightness(30);
+    opacity: 0;
+  }
+  11% {
+    transform: scale(1, 1) translate3d(0, 0, 0);
+    -webkit-filter: contrast(0) brightness(0);
+    filter: contrast(0) brightness(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1) translate3d(0, 0, 0);
+    -webkit-filter: contrast(1) brightness(1.2) saturate(1.3);
+    filter: contrast(1) brightness(1.2) saturate(1.3);
+    opacity: 1;
+  }
+}
+@keyframes turn-off {
+  0% {
+    transform: scale(1, 1.3) translate3d(0, 0, 0);
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.3, 0.001) translate3d(0, 0, 0);
+    -webkit-filter: brightness(10);
+    filter: brightness(10);
+  }
+  100% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: scale(0, 0.0001) translate3d(0, 0, 0);
+    -webkit-filter: brightness(50);
+    filter: brightness(50);
+  }
+}
 @keyframes textShadow {
   0% {
     text-shadow: 0.4389924193px 0 1px rgba(255, 255, 255, 0.5), -0.4389924193px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
@@ -88,17 +168,22 @@
     text-shadow: 2.6208764474px 0 1px rgba(255, 255, 255, 0.5), -2.6208764474px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
   }
 }
-.crt::before {
+.crt, .main-container {
+  animation: turn-on 4s linear;
+  animation-fill-mode: forwards;
+}
+
+.crt::before, .main-container::before {
   content: " ";
   display: block;
   position: absolute;
-  top: 104px;
+  top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
-  background-size: 100% 2px, 3px 100%;
+  z-index: 12;
+  background-size: 100% 3px, 3px 100%;
   pointer-events: none;
 }
 
@@ -110,11 +195,97 @@
   animation: textShadow 3s infinite;
 }
 
+@keyframes crtScan {
+  from {
+    top: 0;
+  }
+  to {
+    top: 100vh;
+  }
+}
+.crt::after, .main-container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  height: 20vh;
+  width: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.1) 50%, rgba(18, 16, 16, 0) 50%);
+  z-index: 12;
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  animation-name: crtScan;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.1, 0.7, 1, 0.3);
+}
+
 /* CRT VFX END*/
+/* SIMPLE VFX */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation-name: fade-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.slide-in-bottom {
+  animation-name: slide-in-bottom;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+/* BOX SIZING */
 * {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: Arial;
+  overflow: hidden;
+  background: black;
+  background-size: 100% 3px, 3px 100%;
+}
+
+/* COMPONENTS */
+.main-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  display: flex;
+  padding: 32px 12.5% 16px;
+  font-weight: bold;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.fade {
+  opacity: 0;
+  transition: 2s;
+}
+
+/* SCROLL BAR/
 /* width */
 ::-webkit-scrollbar {
   width: 6px;
@@ -136,5 +307,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* COLORS */
 
 /*# sourceMappingURL=main.css.map */

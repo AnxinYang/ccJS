@@ -1,5 +1,5 @@
 /* COLORS */
-$WHITE:       rgba(255,255,255, 0.7);
+$WHITE:       rgba(255,255,255, 1);
 $BLACK:       rgba(0,0,0, 0.9);
 $BLACK_SOLID: rgb(25, 25, 25);
 $RED:         #d63031;
@@ -9,16 +9,20 @@ $RED:         #d63031;
   background-color: $BLACK;
 }
 
+.background-solid-black{
+  background-color: $BLACK_SOLID;
+}
+
 .background-red{
   background-color: $RED;
 }
 
 /* BOX-SHADOW */
 .shadow{
-  box-shadow: 0 0 10px 20px $BLACK;
+  box-shadow: 0 0 20px $BLACK;
 }
 
-/* FONT COLOR */
+/* FONT */
 .font-red{
   color: $RED
 }
@@ -26,3 +30,28 @@ $RED:         #d63031;
 .font-white{
   color: $WHITE
 }
+
+.font-black{
+  color: $BLACK
+}
+
+.font-size-small{
+  font-size: 16px
+}
+
+.font-size-medium-small{
+  font-size: 20px
+}
+
+.font-size-medium{
+  font-size: 32px
+}
+
+.font-size-medium-large{
+  font-size: 48px
+}
+
+.font-size-large{
+  font-size: 64px
+}
+

@@ -2,7 +2,6 @@ import cc from './ccjs/cc';
 
 const WHITE = 'rgba(255,255,255, 0.7)';
 const BLACK = 'rgba(0,0,0, 0.9)';
-const BLACK_SOLID = 'rgb(25, 25, 25)';
 const RED = '#d63031';
 
 cc.setValue('viewport', {width: window.innerWidth, height: window.innerHeight});
@@ -12,44 +11,13 @@ window.addEventListener('resize', function () {
 function index() {
     let root = cc.select('#body');
     let mainContainer = cc.createElement('div', 'test')
-        .addClass('crt')
-        .addClass('background-black')
-        .addClass('shadow')
-        .css({
-            height: '100vh',
-            width: '100vw',
-        })
-        .data({
-            animationCounter: 0,
-        })
-        .bind('frame', function (d) {
-            let counter = this.getData().animationCounter;
-            this.css({
-                opacity: counter / 60
-            });
-            this.data({animationCounter: counter + 1});
-            if (counter >= 60) {
-                this.unbind('frame')
-            }
-        });
+        .addClass('main-container');
 
     root.appendChild(mainContainer);
     let container = mainContainer.add('div')
 
     let header = container.add('div', 'header')
-        .css({
-            display: 'flex',
-            padding: '0 12.5%',
-            paddingTop: '32px',
-            paddingBottom: '16px',
-            color: WHITE,
-            fontWeight: 'bold',
-            justifyContent: 'space-between',
-            boxShadow: BLACK + ' 0 0 20px',
-            position: 'relative',
-            zIndex: 10,
-            background: BLACK_SOLID
-        });
+        .addClass('header');
     let headerLeft = header.add('div')
         .css({
             display: 'inline-block',
@@ -57,15 +25,15 @@ function index() {
         });
     let logo = headerLeft.add('div')
         .content('A')
+        .addClass('background-red')
+        .addClass('font-black')
         .css({
-            background: RED,
             fontSize: '64px',
             padding: '0 16px',
             lineHeight: '54px',
             marginRight: '4px',
             display: 'inline-block',
             boxShadow: RED + ' 0 0 10px',
-            color: BLACK
         });
 
     let nameContainer = headerLeft.add('div')
@@ -140,21 +108,20 @@ function index() {
         })
         .bind('frame', function () {
             let doms = cc.select('.fade');
+            if(doms.length===0){
+                this.unbind('frame')
+            }
             for (let i = 0; i < doms.length; i++) {
                 let dom = doms[i];
-                let isInViewPort = dom.isInViewport({offsetY: 120});
+                let isInViewPort = dom.isInViewport({offsetY: 150});
                 let opacity = +dom.style.opacity;
-                if (opacity > 0 && !isInViewPort) {
-                    opacity = opacity - 0.05;
+                if (isInViewPort) {
+                    dom.addClass('slide-in-bottom');
+                    dom.removeClass('fade-out');
+                }else {
+                    dom.removeClass('slide-in-bottom');
+                    dom.addClass('fade-out');
                 }
-                if (opacity < 1 && isInViewPort) {
-                    opacity = opacity + 0.03;
-                }
-                let translateY = 30 - opacity * 30;
-                dom.css({
-                    opacity: opacity,
-                    transform: 'translateY(' + translateY + 'px)'
-                })
             }
         });
     let highLight = mainContentContainer.add('div')
@@ -193,12 +160,12 @@ function index() {
             flexWrap: 'wrap'
         });
 
-    let skills = ['fa-html5', 'fa-js', 'fa-css3-alt', 'fa-react', 'fa-node-js'];
-    let skillNames = ['HTML5', 'Javascript', 'CSS3', 'React', 'NodeJS'];
-    let skillColors = ['#e44d26', '#eeaf4b', '#0070ba', '#61dafb', '#7cb700'];
+    let skills = ['fa-html5', 'fa-js', 'fa-css3-alt', 'fa-react', 'fa-node-js','fa-sass'];
+    let skillNames = ['HTML5', 'Javascript', 'CSS3', 'React', 'NodeJS', 'SASS'];
+    let skillColors = ['#e44d26', '#eeaf4b', '#0070ba', '#61dafb', '#7cb700','#c69'];
     skills.forEach(function (icon, idx) {
         let card = skillCardContainer.add('div')
-            .addClass('fade').addClass('fade')
+            .addClass('fade')
             .css({
                 minWidth: '300px',
                 textAlign: 'center',
@@ -280,7 +247,7 @@ function index() {
     });
 
     let footer = mainContentContainer.add('p')
-        .content('This website is build by ccJS, a self-implemented Javascript Library.')
+        .content('Powered by ccJS, a self-implemented Javascript Library.')
         .css({
             textAlign: 'center',
             marginTop: '128px'
