@@ -57,9 +57,9 @@ function index() {
             display: 'flex',
             fontSize: '16px',
         });
-    let menuList = ['fa-linkedin'];
-    let links = ['https://www.linkedin.com/in/anxin-yang-707029125/'];
-    let hoverColors = ['#0077B5'];
+    let menuList = ['fa-linkedin', 'fa-github'];
+    let links = ['https://www.linkedin.com/in/anxin-yang-707029125/', 'https://github.com/AnxinYang'];
+    let hoverColors = ['#0077B5', 'rgba(255,0,80, 0.8)'];
     menuList.forEach(function (tag, idx) {
         menu.add('i')
             .addClass('fab')
@@ -70,14 +70,15 @@ function index() {
                 textAlign: 'center',
                 fontSize: '32px',
                 textShadow: ' 0 0 5px',
-                transition: '0.3s'
+                transition: '0.3s',
+                marginRight: '16px'
             })
             .on('click', function () {
                 window.open(links[idx], '_blank')
             })
             .on('mouseenter', function () {
                 this.css({
-                    color: '#0077B5',
+                    color: hoverColors[idx],
                 })
             }, 'style')
             .on('mouseleave', function () {

@@ -23,7 +23,7 @@ body {
   @extend .shadow;
   @extend .font-white;
   display: flex;
-  padding: 32px 12.5% 16px;
+  padding: 32px 6% 16px 12.5%;
   font-weight: bold;
   justify-content: space-between;
   position: relative;
@@ -48,11 +48,11 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(80,80,80, 0.5);
+  background: rgba(255,0,80, 0.3);
   border-radius: 6px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(255,0,80, 0.8);
 }
