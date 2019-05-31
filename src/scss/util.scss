@@ -1,0 +1,28 @@
+/* COLORS */
+$WHITE:       rgba(255,255,255, 0.7);
+$BLACK:       rgba(0,0,0, 0.9);
+$BLACK_SOLID: rgb(25, 25, 25);
+$RED:         #d63031;
+
+/* BACKGROUND */
+.background-black{
+  background-color: $BLACK;
+}
+
+.background-red{
+  background-color: $RED;
+}
+
+/* BOX-SHADOW */
+.shadow{
+  box-shadow: 0 0 10px 20px $BLACK;
+}
+
+/* FONT COLOR */
+.font-red{
+  color: $RED
+}
+
+.font-white{
+  color: $WHITE
+}

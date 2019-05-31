@@ -13,11 +13,11 @@ function index() {
     let root = cc.select('#body');
     let mainContainer = cc.createElement('div', 'test')
         .addClass('crt')
+        .addClass('background-black')
+        .addClass('shadow')
         .css({
-            background: BLACK,
             height: '100vh',
             width: '100vw',
-            boxShadow: BLACK + '0 0 10px 20px'
         })
         .data({
             animationCounter: 0,
