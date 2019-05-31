@@ -277,9 +277,10 @@ function index() {
             this.css({
                 transform: 'translateY(' + (-mainContentContainer.scrollTop/6) + 'px)'
             });
-            counter+=24;
+            counter+=4;
             if(counter >= codeBackgroundText.length){
-                counter = codeBackgroundText.length - 1;
+                //counter = codeBackgroundText.length - 1;
+                return false;
             }else{
                 this.innerText = codeBackgroundText.substring(0, counter) + '_';
             }
