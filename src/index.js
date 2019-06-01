@@ -1,5 +1,5 @@
 import cc from './ccjs/cc';
-
+import analyser from './analyser';
 const WHITE = 'rgba(255,255,255, 0.7)';
 const BLACK = 'rgba(0,0,0, 0.9)';
 const RED = '#d63031';
@@ -261,15 +261,16 @@ function index() {
         });
 
     let footShadow = container.add('div')
-        .content('')
+        .addClass('background-solid-black')
         .css({
             position: 'fixed',
             bottom: '0',
             left: 0,
             width: '100%',
             zIndex: 12,
-            boxShadow: 'rgba(255, 0, 80, 0.8) 0px 0px 50px 2px'
+            //boxShadow: 'rgba(255, 0, 80, 0.8) 0px 0px 50px 2px'
         });
+    analyser(footShadow);
     let codeBackgroundText = index.toString();
     let columnWidth = Math.min(400 , window.innerWidth - 128);
     let columnCount = Math.min(2, Math.floor(window.innerWidth/(columnWidth)));
