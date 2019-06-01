@@ -145,23 +145,23 @@ $ease-in-quint:cubic-bezier(0.755, 0.050, 0.855, 0.060);
   from{top: 0}
   to{top: 100vh}
 }
-
-.crt::after{
-  content:            " ";
-  display:            block;
-  position:           absolute;
-  top:                0;
-  height:             64px;
-  width:              100%;
-  background:         linear-gradient(rgba(255, 0, 80, 0.2) 50%, rgba(18, 16, 16, 0) 50%);
-  z-index:            10;
-  background-size:    100% 3px, 3px 100%;
-  pointer-events:     none;
-  animation-name:     crtScan;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.3);
-}
+//
+//.crt::after{
+//  content:            " ";
+//  display:            block;
+//  position:           absolute;
+//  top:                0;
+//  height:             64px;
+//  width:              100%;
+//  background:         linear-gradient(rgba(255, 0, 80, 0.2) 50%, rgba(18, 16, 16, 0) 50%);
+//  z-index:            10;
+//  background-size:    100% 3px, 3px 100%;
+//  pointer-events:     none;
+//  animation-name:     crtScan;
+//  animation-duration: 5s;
+//  animation-iteration-count: infinite;
+//  animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.3);
+//}
 /* CRT VFX END*/
 
 /* SIMPLE VFX */

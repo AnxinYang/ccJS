@@ -147,6 +147,52 @@ function index() {
         .css({
             fontSize: '20px',
         });
+    let player = landingContainer.add('div')
+            .css({
+                fontSize: '64px',
+                width: '100%',
+                textAlign: 'center'
+            })
+        .add('i')
+        .addClass('far')
+        .addClass('fa-play-circle')
+        .css({
+            cursor: 'pointer'
+        })
+        .on('mouseover', function () {
+            this.css({
+                color: 'rgba(255,0,80, 0.8)'
+            });
+            playerWarn.css({
+                display: ''
+            });
+        })
+        .on('mouseleave', function () {
+            this.css({
+                color: ''
+            });
+            playerWarn.css({
+                display: 'none'
+            });
+        })
+        .on('click', function () {
+            if(cc.getValue('play')){
+                cc.setValue('play', false);
+                this.removeClass('fa-pause-circle');
+                this.addClass('fa-play-circle');
+            }else{
+                cc.setValue('play', true);
+                this.addClass('fa-pause-circle');
+                this.removeClass('fa-play-circle');
+            }
+        });
+    let playerWarn = landingContainer.add('p')
+        .content('Watch you volume :)')
+        .css({
+            textAlign:'center',
+            display: 'none',
+            color:'rgba(255,0,80, 0.8)'
+        });
 
     let skillContainer = mainContentContainer.add('div');
     let skillTitle = skillContainer.add('div')
@@ -261,13 +307,12 @@ function index() {
         });
 
     let footShadow = container.add('div')
-        .addClass('background-solid-black')
         .css({
             position: 'fixed',
-            bottom: '0',
+            bottom: 0,
             left: 0,
             width: '100%',
-            zIndex: 12,
+            zIndex: 10,
             //boxShadow: 'rgba(255, 0, 80, 0.8) 0px 0px 50px 2px'
         });
     analyser(footShadow);

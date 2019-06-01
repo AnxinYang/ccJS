@@ -1,10 +1,21 @@
 function analyser(Container) {
     // Establish all variables that your Analyser will use
-    let canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+    let canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height, isInit;
     canvas = Container.add('canvas')
+        .attr({
+            height: 100
+        })
         .css({
             width: '100%',
             height: '100px'
+        })
+        .bind('play', function (d) {
+            if(d){
+                isInit = isInit?true:initMp3Player();
+                audio.play();
+            }else {
+                audio.pause();
+            }
         });
     ctx = canvas.getContext('2d');
     let gradient = ctx.createLinearGradient(0, 0, 0, 100);
@@ -16,10 +27,7 @@ function analyser(Container) {
     audio.src = 'gokuraku.mp3';
     audio.controls = true;
     audio.loop = true;
-    audio.autoplay = true;
-
-// Initialize the MP3 player after the page loads all of its HTML into the window
-    window.addEventListener("load", initMp3Player, false);
+    audio.autoplay = false;
 
     function initMp3Player() {
         //document.getElementById('audio_box').appendChild(audio);
@@ -31,6 +39,7 @@ function analyser(Container) {
         source.connect(analyser);
         analyser.connect(context.destination);
         frameLooper();
+        return true;
     }
 
     function frameLooper() {
@@ -42,10 +51,10 @@ function analyser(Container) {
         bar_width = canvas.getBoundingClientRect().width / (fbc_array.length * 3);
         for (var i = 0; i < fbc_array.length; i++) {
             bar_x = i;
-            bar_height = -(fbc_array[i] / 2);
+            bar_height = -(fbc_array[i]*canvas.height/255);
             ctx.fillStyle = gradient;
             ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
-            if(bar_height<-100){
+            if(bar_height<-80){
                 let gradientHit = ctx.createLinearGradient(bar_x-5, 0, bar_x+5, 0);
                 gradientHit.addColorStop(0, "rgba(255,0,80,0)");
                 gradientHit.addColorStop(0.25, "rgba(255,0,80,0)");
