@@ -122,7 +122,9 @@ function setupElementMethods(element, options) {
         }
         if(fn) {
             eventHandler = function (e) {
-                fn.call(self, e, self._data);
+                if(fn.call(self, e, self._data) === false){
+                    self.removeEventListener(eventName, eventHandler);
+                }
             };
             element._eventListeners.set(eventTag, eventHandler);
             this.addEventListener(eventName, eventHandler, false);
