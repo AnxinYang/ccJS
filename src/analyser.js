@@ -7,7 +7,8 @@ function analyser(Container) {
         })
         .css({
             width: '100%',
-            height: '100px'
+            height: '100px',
+            pointerEvents:   'none',
         })
         .bind('play', function (d) {
             if(d){
@@ -53,8 +54,8 @@ function analyser(Container) {
             bar_x = i;
             bar_height = -(fbc_array[i]*canvas.height/255);
             ctx.fillStyle = gradient;
-            ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
-            if(bar_height<-80){
+            ctx.fillRect(bar_x, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
+            if(bar_height<-70){
                 let gradientHit = ctx.createLinearGradient(bar_x-5, 0, bar_x+5, 0);
                 gradientHit.addColorStop(0, "rgba(255,0,80,0)");
                 gradientHit.addColorStop(0.25, "rgba(255,0,80,0)");

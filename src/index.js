@@ -313,6 +313,7 @@ function index() {
             left: 0,
             width: '100%',
             zIndex: 10,
+            pointerEvents:   'none'
             //boxShadow: 'rgba(255, 0, 80, 0.8) 0px 0px 50px 2px'
         });
     analyser(footShadow);
@@ -331,6 +332,7 @@ function index() {
             columnCount: columnCount,
             columnWidth: columnWidth + 'px',
             width: 'calc(100vw - 128px)',
+            opacity: 0.3
         })
         .data({
             counter: 0,
