@@ -90,13 +90,14 @@ function index() {
 
     let mainContentContainer = cc.createElement('div', 'main_content')
         .css({
-            height: 'calc(100vh - 100px)',
+            height: 'calc(100vh - 104px)',
             padding: '0 12.5%',
-            paddingTop: '25vh',
             color: WHITE,
             overflowY: 'auto',
             position: 'relative',
             zIndex: 5,
+            display: 'flex',
+            flexDirection: 'column'
         })
         .on('mousemove', function (e) {
             let centerX = window.innerWidth / 2;
@@ -125,7 +126,11 @@ function index() {
                 }
             }
         });
-    let highLight = mainContentContainer.add('div')
+    let landingContainer = mainContentContainer.add('div')
+        .css({
+            height: 'calc(100vh - 104px)'
+        });
+    let highLight = landingContainer.add('div')
         .content("Let's make data alive")
         .addClass('fade')
         .css({
@@ -133,8 +138,9 @@ function index() {
             fontWeight: 'bold',
             fontSize: '48px',
             textAlign: 'center',
+            marginTop: 'calc(50vh - 152px)'
         });
-    let intro = mainContentContainer.add('p')
+    let intro = landingContainer.add('p')
         .addClass('fade')
         .content("I'm a front-end developer from Bay Area, California, and currently living in San Jose. I enjoy building rich " +
             "interactive websites and web apps from small to large. ")
@@ -254,6 +260,16 @@ function index() {
             marginTop: '128px'
         });
 
+    let footShadow = container.add('div')
+        .content('')
+        .css({
+            position: 'fixed',
+            bottom: '0',
+            left: 0,
+            width: '100%',
+            zIndex: 12,
+            boxShadow: 'rgba(255, 0, 80, 0.8) 0px 0px 50px 2px'
+        });
     let codeBackgroundText = index.toString();
     let columnWidth = Math.min(400 , window.innerWidth - 128);
     let columnCount = Math.min(2, Math.floor(window.innerWidth/(columnWidth)));

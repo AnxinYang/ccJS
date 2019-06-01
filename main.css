@@ -50,6 +50,11 @@
   font-size: 64px;
 }
 
+/* SIZE */
+.height-100vh {
+  height: 100vh;
+}
+
 /* CRT VFX */
 @keyframes turn-on {
   0% {
@@ -201,10 +206,10 @@
   display: block;
   position: absolute;
   top: 0;
-  height: 20vh;
+  height: 64px;
   width: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.1) 50%, rgba(18, 16, 16, 0) 50%);
-  z-index: 12;
+  background: linear-gradient(rgba(255, 0, 80, 0.2) 50%, rgba(18, 16, 16, 0) 50%);
+  z-index: 10;
   background-size: 100% 3px, 3px 100%;
   pointer-events: none;
   animation-name: crtScan;
