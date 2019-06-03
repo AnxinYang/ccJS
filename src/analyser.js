@@ -68,9 +68,9 @@ function analyser(Container) {
             if(bar_height<-70){
                 let gradientHit = ctx.createLinearGradient(bar_x-10, 0, bar_x+10, 0);
                 gradientHit.addColorStop(0, "rgba(255,0,80,0)");
-                gradientHit.addColorStop(0.25, "rgba(255,0,80,0)");
-                gradientHit.addColorStop(0.5, "rgba(255,0,80,0.8)");
-                gradientHit.addColorStop(0.75, "rgba(255,0,80,0)");
+                gradientHit.addColorStop(0.25, "rgba(255,0,80,0.1)");
+                gradientHit.addColorStop(0.5, "rgba(249, 202, 36,1.0)");
+                gradientHit.addColorStop(0.75, "rgba(255,0,80,0.1)");
                 gradientHit.addColorStop(1, "rgba(255,0,80,0)");
                 ctx.fillStyle = gradientHit;
                 ctx.fillRect(bar_x-10, 1, 20, 1);
