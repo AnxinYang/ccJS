@@ -3,7 +3,8 @@ function analyser(Container) {
     let canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height, isInit;
     canvas = Container.add('canvas')
         .attr({
-            height: 100
+            height: 100,
+            width: Container.getBoundingClientRect().width
         })
         .css({
             width: '100%',
@@ -21,7 +22,7 @@ function analyser(Container) {
     ctx = canvas.getContext('2d');
     let gradient = ctx.createLinearGradient(0, 0, 0, 100);
     gradient.addColorStop(0, "rgba(255,0,80,0.1)");
-    gradient.addColorStop(1, "rgba(255,0,80,1)");
+    gradient.addColorStop(1, "rgba(255,0,80,0.5)");
 
     // Create a new instance of an audio object and adjust some of its properties
     let audio = new Audio();
@@ -49,9 +50,9 @@ function analyser(Container) {
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
         //bars = 1000;
-        bar_width = canvas.getBoundingClientRect().width / (fbc_array.length);
+        bar_width = canvas.width / (fbc_array.length);
         for (var i = 0; i < fbc_array.length; i++) {
-            bar_x = i;
+            bar_x = i * bar_width;
             bar_height = -(fbc_array[i]*canvas.height/255);
             ctx.fillStyle = gradient;
             ctx.fillRect(bar_x, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
