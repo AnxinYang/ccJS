@@ -55,31 +55,31 @@ function analyser(Container) {
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
         bars = canvas.width/3;
-        bar_width = canvas.width / (bars * 2);
+        bar_width = canvas.width / (bars);
         for (var i = 0; i < bars; i++) {
             bar_x = i * bar_width;
-            bar_x2 = (canvas.width) - i * bar_width;
+            //bar_x2 = (canvas.width) - i * bar_width;
             bar_height = -(fbc_array[i]*canvas.height/255);
             ctx.fillStyle = gradient;
             ctx.fillRect(bar_x, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
-            ctx.fillRect(bar_x2, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
+            //ctx.fillRect(bar_x2, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
             if(bar_height<-70){
-                let gradientHit = ctx.createLinearGradient(bar_x-5, 0, bar_x+5, 0);
+                let gradientHit = ctx.createLinearGradient(bar_x-10, 0, bar_x+10, 0);
                 gradientHit.addColorStop(0, "rgba(255,0,80,0)");
                 gradientHit.addColorStop(0.25, "rgba(255,0,80,0)");
                 gradientHit.addColorStop(0.5, "rgba(255,0,80,0.8)");
                 gradientHit.addColorStop(0.75, "rgba(255,0,80,0)");
                 gradientHit.addColorStop(1, "rgba(255,0,80,0)");
                 ctx.fillStyle = gradientHit;
-                ctx.fillRect(bar_x-5, 1, 10, 1);
-                let gradientHit2 = ctx.createLinearGradient(bar_x2-5, 0, bar_x2+5, 0);
-                gradientHit2.addColorStop(0, "rgba(255,0,80,0)");
-                gradientHit2.addColorStop(0.25, "rgba(255,0,80,0)");
-                gradientHit2.addColorStop(0.5, "rgba(255,0,80,0.8)");
-                gradientHit2.addColorStop(0.75, "rgba(255,0,80,0)");
-                gradientHit2.addColorStop(1, "rgba(255,0,80,0)");
-                ctx.fillStyle = gradientHit2;
-               ctx.fillRect(bar_x2-5, 1, 10, 1);
+                ctx.fillRect(bar_x-10, 1, 20, 1);
+               //  let gradientHit2 = ctx.createLinearGradient(bar_x2-5, 0, bar_x2+5, 0);
+               //  gradientHit2.addColorStop(0, "rgba(255,0,80,0)");
+               //  gradientHit2.addColorStop(0.25, "rgba(255,0,80,0)");
+               //  gradientHit2.addColorStop(0.5, "rgba(255,0,80,0.8)");
+               //  gradientHit2.addColorStop(0.75, "rgba(255,0,80,0)");
+               //  gradientHit2.addColorStop(1, "rgba(255,0,80,0)");
+               //  ctx.fillStyle = gradientHit2;
+               // ctx.fillRect(bar_x2-5, 1, 10, 1);
             }
         }
     }
