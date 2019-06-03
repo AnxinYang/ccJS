@@ -62,7 +62,7 @@ function analyser(Container) {
             //bar_x2 = (canvas.width) - i * bar_width;
             bar_height = -(fbc_array[i]*canvas.height/255) - 2;
             ctx.fillStyle = gradient;
-            ctx.fillRect(bar_x, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
+            ctx.fillRect(bar_x, canvas.height, bar_width-1, bar_height<-70?bar_height: bar_height*0.9);
             //ctx.fillRect(bar_x2, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
             if(bar_height<-70){
                 let gradientHit = ctx.createLinearGradient(bar_x-10, 0, bar_x+10, 0);
