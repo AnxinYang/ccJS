@@ -54,8 +54,9 @@ function analyser(Container) {
         fbc_array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-        bars = canvas.width/3;
-        bar_width = canvas.width / (bars);
+        bar_width = 5;
+        bars = canvas.width/bar_width;
+        //bar_width = canvas.width / (bars);
         for (var i = 0; i < bars; i++) {
             bar_x = i * bar_width;
             //bar_x2 = (canvas.width) - i * bar_width;
