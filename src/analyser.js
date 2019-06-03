@@ -25,7 +25,7 @@ function analyser(Container) {
 
     // Create a new instance of an audio object and adjust some of its properties
     let audio = new Audio();
-    audio.src = 'gokuraku.mp3';
+    audio.src = './res/Bohemian Rhapsody.aac';
     audio.controls = true;
     audio.loop = true;
     audio.autoplay = false;
