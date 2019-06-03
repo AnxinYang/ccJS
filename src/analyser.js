@@ -18,6 +18,11 @@ function analyser(Container) {
             }else {
                 audio.pause();
             }
+        })
+        .bind('viewport', function () {
+            this.attr({
+                width: Container.getBoundingClientRect().width
+            })
         });
     ctx = canvas.getContext('2d');
     let gradient = ctx.createLinearGradient(0, 0, 0, 100);
@@ -49,7 +54,7 @@ function analyser(Container) {
         fbc_array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-        bars = fbc_array.length;
+        bars = canvas.width/3;
         bar_width = canvas.width / (bars * 2);
         for (var i = 0; i < bars; i++) {
             bar_x = i * bar_width;
