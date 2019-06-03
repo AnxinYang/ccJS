@@ -60,7 +60,7 @@ function analyser(Container) {
         for (var i = 0; i < bars; i++) {
             bar_x = i * bar_width;
             //bar_x2 = (canvas.width) - i * bar_width;
-            bar_height = -(fbc_array[i]*canvas.height/255);
+            bar_height = -(fbc_array[i]*canvas.height/255) - 2;
             ctx.fillStyle = gradient;
             ctx.fillRect(bar_x, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
             //ctx.fillRect(bar_x2, canvas.height, bar_width, bar_height<-70?bar_height: bar_height*0.9);
