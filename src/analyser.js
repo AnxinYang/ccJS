@@ -73,7 +73,7 @@ function analyser(Container) {
                 gradientHit.addColorStop(0.75, "rgba(255,0,80,0.1)");
                 gradientHit.addColorStop(1, "rgba(255,0,80,0)");
                 ctx.fillStyle = gradientHit;
-                ctx.fillRect(bar_x-10, 1, 20, 1);
+                ctx.fillRect(bar_x-10, 0, 20, 1);
                //  let gradientHit2 = ctx.createLinearGradient(bar_x2-5, 0, bar_x2+5, 0);
                //  gradientHit2.addColorStop(0, "rgba(255,0,80,0)");
                //  gradientHit2.addColorStop(0.25, "rgba(255,0,80,0)");
