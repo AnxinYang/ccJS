@@ -49,7 +49,7 @@ function analyser(Container) {
         fbc_array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-        bars = 700;
+        bars = fbc_array.length;
         bar_width = canvas.width / (bars * 2);
         for (var i = 0; i < bars; i++) {
             bar_x = i * bar_width;
@@ -74,7 +74,7 @@ function analyser(Container) {
                 gradientHit2.addColorStop(0.75, "rgba(255,0,80,0)");
                 gradientHit2.addColorStop(1, "rgba(255,0,80,0)");
                 ctx.fillStyle = gradientHit2;
-                ctx.fillRect(bar_x2-5, 1, 10, 1);
+               ctx.fillRect(bar_x2-5, 1, 10, 1);
             }
         }
     }
