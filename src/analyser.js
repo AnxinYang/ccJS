@@ -26,7 +26,8 @@ function analyser(Container) {
         });
     ctx = canvas.getContext('2d');
     let gradient = ctx.createLinearGradient(0, 0, 0, 100);
-    gradient.addColorStop(0, "rgba(255,0,80,0.1)");
+    gradient.addColorStop(0, "rgba(249, 202, 36,1.0)");
+    gradient.addColorStop(0.3, "rgba(255,0,80,0.3)");
     gradient.addColorStop(1, "rgba(255,0,80,0.5)");
 
     // Create a new instance of an audio object and adjust some of its properties
