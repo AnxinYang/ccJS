@@ -309,7 +309,7 @@ function index() {
     let footShadow = container.add('div')
         .css({
             position: 'fixed',
-            bottom: 0,
+            bottom: '-3px',
             left: 0,
             width: '100%',
             zIndex: 10,

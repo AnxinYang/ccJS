@@ -9,7 +9,7 @@ const CONTEXT = IS_WORKER ? self : window;
 
 var cc;
 window.cc = cc = {
-    tools: common,
+    utils: common,
     load: function(addOns = [], options = {}){
 
     },

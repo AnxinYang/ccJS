@@ -90,4 +90,12 @@ common.readValue = function(value, options = {}){
     }
 };
 
+common.getUrlVar = function (key, defaultValue) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return (vars[key] === undefined? defaultValue: vars[key]);
+};
+
 export default common;

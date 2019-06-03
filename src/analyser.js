@@ -25,7 +25,7 @@ function analyser(Container) {
 
     // Create a new instance of an audio object and adjust some of its properties
     let audio = new Audio();
-    audio.src = './res/Bohemian Rhapsody.aac';
+    audio.src = `./res/${cc.utils.getUrlVar('music', 'Bohemian Rhapsody')}.${cc.utils.getUrlVar('format', 'aac')}`;
     audio.controls = true;
     audio.loop = true;
     audio.autoplay = false;
@@ -49,7 +49,7 @@ function analyser(Container) {
         analyser.getByteFrequencyData(fbc_array);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
         //bars = 1000;
-        bar_width = canvas.getBoundingClientRect().width / (fbc_array.length * 3);
+        bar_width = canvas.getBoundingClientRect().width / (fbc_array.length);
         for (var i = 0; i < fbc_array.length; i++) {
             bar_x = i;
             bar_height = -(fbc_array[i]*canvas.height/255);
