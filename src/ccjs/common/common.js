@@ -10,7 +10,7 @@ common.objectforEach = function(obj,fn){
     }
 };
 
-common.objectAssign = function(target, source){
+common.objectAssign = function(target = {}, source){
     for(let key in source) {
         if (source.hasOwnProperty(key)) {
             target[key] = source[key]
