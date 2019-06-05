@@ -11,11 +11,8 @@ var dom = {
         switch (_selector){
             case '#':
                 return document.getElementById(name);
-            case '.':
-                doms = document.getElementsByClassName(name) || [];
-                break;
             default:
-                doms =  document.getElementsByTagName(selector) || [];
+                doms =  document.querySelectorAll(selector) || [];
         }
 
         return doms;

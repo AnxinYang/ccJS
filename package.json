@@ -1,8 +1,8 @@
 {
-  "name": "cc",
+  "name": "npm-ccjs-ay",
   "version": "1.0.0",
   "description": "",
-  "main": "loader.js",
+  "main": "index.js",
   "scripts": {
     "init": "npm install",
     "start": "webpack-dev-server --mode development --module-bind js=babel-loader --host 0.0.0.0 --port 1992 --display-error-details",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnxinYang/RedJS.git"
+    "url": "git+https://github.com/AnxinYang/ccJS.git"
   },
   "author": "Anxin Yang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AnxinYang/RedJS/issues"
+    "url": "https://github.com/AnxinYang/ccJS/issues"
   },
-  "homepage": "https://github.com/AnxinYang/RedJS#readme",
+  "homepage": "https://github.com/AnxinYang/ccJS#readme",
   "babel": {
     "presets": [
       "es2015",

@@ -2,6 +2,7 @@ module.exports = {
     entry: {
         main: './src/index',
         //worker: './src/worker',
+        index: './src/ccjs/cc',
     },
     node: {
         fs: 'empty',
