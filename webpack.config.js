@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        main: './src/index',
+        //main: './src/index',
         //worker: './src/worker',
         index: './src/ccjs/cc',
     },
