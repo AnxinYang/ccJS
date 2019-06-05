@@ -1,8 +1,8 @@
 {
   "name": "npm-ccjs-ay",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
-  "main": "index.js",
+  "main": "./src/ccjs/cc.js",
   "scripts": {
     "init": "npm install",
     "start": "webpack-dev-server --mode development --module-bind js=babel-loader --host 0.0.0.0 --port 1992 --display-error-details",
