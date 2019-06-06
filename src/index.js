@@ -334,22 +334,29 @@ function index() {
             width: 'calc(100vw - 128px)',
             opacity: 0.3
         })
-        .data({
+        .memory({
             counter: 0,
+            isPrinting: true,
+            transform: function () {
+                this.css({
+                    transform: 'translateY(' + (-mainContentContainer.scrollTop/6) + 'px)'
+                });
+            },
+            printCode:  function () {
+                let mem = this.getMemory();
+                mem.counter+=4;
+                if(mem.counter >= codeBackgroundText.length){
+                    //counter = codeBackgroundText.length - 1;
+                    mem.isPrinting = false;
+                }else{
+                    this.innerText = codeBackgroundText.substring(0,mem.counter) + '_';
+                }
+            }
         })
         .bind('frame', function () {
-            let {counter, str} = this.getData();
-            this.css({
-                transform: 'translateY(' + (-mainContentContainer.scrollTop/6) + 'px)'
-            });
-            counter+=4;
-            if(counter >= codeBackgroundText.length){
-                //counter = codeBackgroundText.length - 1;
-                return false;
-            }else{
-                this.innerText = codeBackgroundText.substring(0, counter) + '_';
-            }
-            this.data({counter: counter})
+            let {transform, printCode, isPrinting} = this.getMemory();
+            transform.call(this);
+            isPrinting && printCode.call(this);
         })
         .bind('viewport', function (d) {
             let {height, width} = d;
