@@ -32,6 +32,7 @@ var dom = {
 function setupElementMethods(element, options) {
     element._eventListeners = new Map();
     element._bound = new Map();
+    element._memory = {};
 
     element.add = function (tag, id, options) {
         let child = dom.createElement(tag, id, options);
@@ -62,12 +63,12 @@ function setupElementMethods(element, options) {
         return this;
     };
 
-    element.getData = function(){
-        return this._data
+    element.getMemory = function(){
+        return this._memory;
     };
 
-    element.data = function(any){
-        this._data = any;
+    element.memory = function(obj){
+        this._memory = obj;
         return this;
     };
 
