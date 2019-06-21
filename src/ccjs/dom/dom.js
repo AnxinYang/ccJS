@@ -50,6 +50,11 @@ function setupElementMethods(element, options, ns = false) {
         return this.addElement(child);
     };
 
+    element.addNS = function (tag, id, options) {
+        let child = dom.create(tag, id, options, true);
+        return this.addElement(child);
+    };
+
     element.addElement = function (child) {
         this.appendChild(child);
         return child
