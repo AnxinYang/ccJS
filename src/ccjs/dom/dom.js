@@ -17,6 +17,9 @@ var dom = {
 
         return doms;
     },
+    create: function (tag, id = '', options = {}, ns) {
+        return ns?dom.createElementNS(tag, id, options):dom.createElement(tag, id, options);
+    },
     createElement: function (tag, id = '', options = {}) {
         let element = document.createElement(tag);
 
@@ -27,15 +30,23 @@ var dom = {
 
         return element;
     },
+    createElementNS: function (tag, id = '', options = {}) {
+        let element = document.createElementNS("http://www.w3.org/2000/svg", tag);
+        let elementId = id || (tag + '_' + common.createId());
+        element.setAttributeNS(null,'id', elementId);
+        setupElementMethods(element, options, true);
+
+        return element;
+    },
 };
 
-function setupElementMethods(element, options) {
+function setupElementMethods(element, options, ns = false) {
     element._eventListeners = new Map();
     element._bound = new Map();
     element._memory = {};
 
     element.add = function (tag, id, options) {
-        let child = dom.createElement(tag, id, options);
+        let child = dom.create(tag, id, options, ns);
         return this.addElement(child);
     };
 
@@ -172,7 +183,7 @@ function setupElementMethods(element, options) {
                 if (value === false) {
                     this.removeAttribute(key)
                 } else {
-                    this.setAttribute(key, value)
+                    ns?this.setAttributeNS(null, key, value):this.setAttribute(key, value)
                 }
                 break;
             case 'css':
