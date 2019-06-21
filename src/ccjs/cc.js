@@ -20,8 +20,7 @@ window.cc = cc = {
         return dom.createElement(tagName, id, options)
     },
     createElementNS: function (tagName, id, options = {}) {
-        options.NS = true;
-        return dom.createElement(tagName, id, options)
+        return dom.createElementNS(tagName, id, options)
     },
     setValue: function (key, value, options = {}) {
         options.reset = true;
