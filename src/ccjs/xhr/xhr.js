@@ -1,6 +1,6 @@
 const xhr = {
     ajax: function (params = {}) {
-        let promise = new Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             let {url, method, data, async, xhr, contentType, dataType, done, fail} = params || {};
             let {header, onProgress, beforeSend} = params;
             let request = new XMLHttpRequest();
@@ -11,7 +11,7 @@ const xhr = {
                     request.setRequestHeader(key, header[key]);
                 }
             }
-            if(cc.getValue('Authorization')){
+            if (cc.getValue('Authorization')) {
                 request.setRequestHeader('Authorization', cc.getValue('Authorization'));
             }
             request.onload = function () {
@@ -49,8 +49,6 @@ const xhr = {
 
             request.send(_data);
         });
-
-        return promise;
     },
 };
 
