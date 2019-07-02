@@ -121,7 +121,7 @@ Element.prototype.unbind = function(key){
 Element.prototype._react = function(key, value){
     let fn = this._bound.get(key);
     if(fn){
-        if(fn.call(this, value, this._data) === false){
+        if(fn.call(this, value, this._memory) === false){
             this.unbind(key)
         }
     }
@@ -137,7 +137,7 @@ Element.prototype.on  = function(eventName, fn, tag = ''){
     }
     if(fn) {
         eventHandler = function (e) {
-            if(fn.call(self, e, self._data) === false){
+            if(fn.call(self, e, self._memory) === false){
                 self.removeEventListener(eventName, eventHandler);
             }
         };
