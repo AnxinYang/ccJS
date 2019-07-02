@@ -25,189 +25,190 @@ var dom = {
 
         let elementId = id || (tag + '_' + common.createId());
         element.setAttribute('id', elementId);
-
-        setupElementMethods(element, options);
-
         return element;
     },
     createElementNS: function (tag, id = '', options = {}) {
         let element = document.createElementNS("http://www.w3.org/2000/svg", tag);
         let elementId = id || (tag + '_' + common.createId());
+        element._isNS = true;
         element.setAttributeNS(null,'id', elementId);
-        setupElementMethods(element, options, true);
 
         return element;
     },
 };
 
-function setupElementMethods(element, options, ns = false) {
-    element._eventListeners = new Map();
-    element._bound = new Map();
-    element._memory = {};
+Element.prototype._eventListeners = new Map();
+Element.prototype._bound = new Map();
+Element.prototype._memory = {};
+Element.prototype._isNS = false;
+Element.prototype._options = {};
 
-    element.add = function (tag, id, options) {
-        let child = dom.create(tag, id, options, ns);
-        return this.addElement(child);
-    };
+Element.prototype.add = function (tag, id, options) {
+    let child = dom.create(tag, id, options);
+    return this.addElement(child);
+};
 
-    element.addNS = function (tag, id, options) {
-        let child = dom.create(tag, id, options, true);
-        return this.addElement(child);
-    };
+Element.prototype.addNS = function (tag, id, options) {
+    let child = dom.create(tag, id, options);
+    return this.addElement(child);
+};
 
-    element.addElement = function (child) {
-        this.appendChild(child);
-        return child
-    };
+Element.prototype.addElement = function (child) {
+    this.appendChild(child);
+    return child
+};
 
-    element.addClass = function (className) {
-        this.classList.add(className);
-        return this;
-    };
+Element.prototype.addClass = function (className) {
+    this.classList.add(className);
+    return this;
+};
 
-    element.removeClass = function (className) {
-        this.classList.remove(className);
-        return this;
-    };
+Element.prototype.removeClass = function (className) {
+    this.classList.remove(className);
+    return this;
+};
 
-    element.getAttr = function(key){
-        return element.getAttribute(key);
-    };
+Element.prototype.getAttr = function(key){
+    return this.getAttribute(key);
+};
 
-    element.attr = function (key, value) {
-        this._setElement('attr', key, value);
-        return this;
-    };
+Element.prototype.attr = function (key, value) {
+    this._setElement('attr', key, value);
+    return this;
+};
 
-    element.getMemory = function(){
-        return this._memory;
-    };
+Element.prototype.getMemory = function(){
+    return this._memory;
+};
 
-    element.memory = function(obj){
-        this._memory = obj;
-        return this;
-    };
+Element.prototype.memory = function(obj){
+    this._memory = obj;
+    return this;
+};
 
-    element.getProp = function(key){
-        return element[key];
-    };
+Element.prototype.getProp = function(key){
+    return this[key];
+};
 
-    element.prop = function (key, value) {
-        this._setElement('prop', key, value);
-        return this;
-    };
+Element.prototype.prop = function (key, value) {
+    this._setElement('prop', key, value);
+    return this;
+};
 
-    element.css = function(key, value){
-        this._setElement('css', key, value);
-        return this;
-    };
+Element.prototype.css = function(key, value){
+    this._setElement('css', key, value);
+    return this;
+};
 
-    element.bind = function(key, fn){
-        if(key) {
-            let self = this;
-            this._bound.set(key, fn);
-            this.classList.add('storage_' + key);
-        }
-        return this;
-    };
-    element.unbind = function(key){
+Element.prototype.bind = function(key, fn){
+    if(key) {
         let self = this;
-        this._bound.delete(key);
-        this.classList.remove('storage_' + key);
-        return this;
-    };
+        this._bound.set(key, fn);
+        this.classList.add('storage_' + key);
+        setTimeout(function () {
+            self._react(key, cc.getValue('key'))
+        });
+    }
+    return this;
+};
+Element.prototype.unbind = function(key){
+    let self = this;
+    this._bound.delete(key);
+    this.classList.remove('storage_' + key);
+    return this;
+};
 
-    element._react = function(key, value){
-        let fn = this._bound.get(key);
-        if(fn){
-            if(fn.call(this, value, this._data) === false){
-                this.unbind(key)
+Element.prototype._react = function(key, value){
+    let fn = this._bound.get(key);
+    if(fn){
+        if(fn.call(this, value, this._data) === false){
+            this.unbind(key)
+        }
+    }
+};
+
+Element.prototype.on  = function(eventName, fn, tag = ''){
+    let self = this;
+    let eventTag = eventName + tag;
+    let eventHandler = this._eventListeners.get(eventTag);
+    if(eventHandler){
+        this.removeEventListener(eventName, eventHandler);
+        this._eventListeners.delete(eventTag);
+    }
+    if(fn) {
+        eventHandler = function (e) {
+            if(fn.call(self, e, self._data) === false){
+                self.removeEventListener(eventName, eventHandler);
             }
-        }
-    };
+        };
+        this._eventListeners.set(eventTag, eventHandler);
+        this.addEventListener(eventName, eventHandler, false);
+    }
+    return self;
+};
 
-    element.on  = function(eventName, fn, tag = ''){
-        let self = this;
-        let eventTag = eventName + tag;
-        let eventHandler = element._eventListeners.get(eventTag);
-        if(eventHandler){
-            this.removeEventListener(eventName, eventHandler);
-            element._eventListeners.delete(eventTag);
-        }
-        if(fn) {
-            eventHandler = function (e) {
-                if(fn.call(self, e, self._data) === false){
-                    self.removeEventListener(eventName, eventHandler);
-                }
-            };
-            element._eventListeners.set(eventTag, eventHandler);
-            this.addEventListener(eventName, eventHandler, false);
-        }
-        return self;
-    };
+Element.prototype.content = function (str) {
+    this.innerText = str;
+    return this;
+};
 
-    element.content = function (str) {
-        this.innerText = str;
+Element.prototype.removeSelf = function(){
+    this.removeAllChildren();
+    if(this.remove){
+        this.remove()
+    }else{
+        this.parentNode.removeChild(this);
+    }
+};
+
+Element.prototype.removeAllChildren = function(){
+    while (this.firstChild) {
+        this.removeChild(this.firstChild);
+    }
+};
+
+Element.prototype._setElement = function(type, key , value){
+    let self = this;
+    if (key === undefined) {
         return this;
-    };
-
-    element.removeSelf = function(){
-        this.removeAllChildren();
-        if(this.remove){
-            this.remove()
-        }else{
-            this.parentNode.removeChild(this);
-        }
-    };
-
-    element.removeAllChildren = function(){
-        while (this.firstChild) {
-            this.removeChild(this.firstChild);
-        }
-    };
-
-    element._setElement = function(type, key , value){
-        let self = this;
-        if (key === undefined) {
-            return this;
-        }
-        if (typeof key === 'object') {
-            common.objectforEach(key ,function (item, key) {
-                self[type](key, item)
-            });
-            return this;
-        }
-
-        let v = common.readValue(value);
-
-        switch (type) {
-            case 'prop':
-                this[key] =  value;
-                break;
-            case 'attr':
-                if (value === false) {
-                    this.removeAttribute(key)
-                } else {
-                    ns?this.setAttributeNS(null, key, value):this.setAttribute(key, value)
-                }
-                break;
-            case 'css':
-                this.style[key] =  value;
-                break;
-        }
+    }
+    if (typeof key === 'object') {
+        common.objectforEach(key ,function (item, key) {
+            self[type](key, item)
+        });
         return this;
     }
 
-    element.isInViewport = function (options = {}) {
-        let offsetX = options.offsetX || 0;
-        let offsetY = options.offsetY || 0;
-        let {x, y, width, height} = this.getBoundingClientRect(); //IE not support bottom right
-        let x2 = x + width;
-        let y2 = y + height;
-        let innerWidth = window.innerWidth;
-        let innerHeight = window.innerHeight;
-        return !(x2 <= (0 + offsetX)|| x >= (innerWidth - offsetX) || y2 <= (0 + offsetY) || y >= (innerHeight - offsetY))
-    };
+    let v = common.readValue(value);
+
+    switch (type) {
+        case 'prop':
+            this[key] =  value;
+            break;
+        case 'attr':
+            if (value === false) {
+                this.removeAttribute(key)
+            } else {
+                this._isNS?this.setAttributeNS(null, key, value):this.setAttribute(key, value)
+            }
+            break;
+        case 'css':
+            this.style[key] =  value;
+            break;
+    }
+    return this;
 }
+
+Element.prototype.isInViewport = function (options = {}) {
+    let offsetX = options.offsetX || 0;
+    let offsetY = options.offsetY || 0;
+    let {x, y, width, height} = this.getBoundingClientRect(); //IE not support bottom right
+    let x2 = x + width;
+    let y2 = y + height;
+    let innerWidth = window.innerWidth;
+    let innerHeight = window.innerHeight;
+    return !(x2 <= (offsetX)|| x >= (innerWidth - offsetX) || y2 <= (offsetY) || y >= (innerHeight - offsetY))
+};
+
 
 export default dom;
