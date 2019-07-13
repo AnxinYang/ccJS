@@ -16,6 +16,9 @@ window.cc = cc = {
     select: function(selector){
         return dom.select(selector)
     },
+    selectAll: function(selector){
+        return dom.selectAll(selector)
+    },
     createElement: function (tagName, id, options) {
         return dom.createElement(tagName, id, options)
     },
