@@ -4,18 +4,13 @@ var dom = {
         if(selector===undefined){
             return;
         }
-
-        let _selector = selector.charAt(0);
-        let name = selector.substring(1);
-        let doms = [];
-        switch (_selector){
-            case '#':
-                return document.getElementById(name);
-            default:
-                doms =  document.querySelectorAll(selector) || [];
+        return document.querySelector(selector);
+    },
+    selectAll: function(selector){
+        if(selector===undefined){
+            return;
         }
-
-        return doms;
+        return document.querySelectorAll(selector);
     },
     create: function (tag, id = '', options = {}, ns) {
         return ns?dom.createElementNS(tag, id, options):dom.createElement(tag, id, options);
