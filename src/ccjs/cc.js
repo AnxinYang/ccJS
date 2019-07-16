@@ -29,6 +29,9 @@ window.cc = cc = {
         options.reset = true;
         return storage.setValue(key, value, options)
     },
+    cast: function (key, value, options = {}){
+        storage.broadcast(key, value, options);
+    },
     saveArray: function(key, arr = [], idkey){
         if(idkey !== undefined && idkey !== '' && key !== undefined){
             arr.forEach(function (item) {
