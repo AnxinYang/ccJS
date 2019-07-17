@@ -103,7 +103,7 @@ Element.prototype.bind = function(key, fn){
         this._bound.set(key, fn);
         this.classList.add('storage_' + key);
         setTimeout(function () {
-            self._react(key, cc.getValue('key'))
+            self._react(key, cc.getValue(key))
         });
     }
     return this;
