@@ -11,10 +11,10 @@ var storage = {
         let oldValue = dataMap.get(key);
         if(common.isObject(value) && common.isObject(oldValue) && reset !== true) {
             common.objectforEach(value, function (item, key, obj) {
-                if (item !== value) {
+                if (item !== oldValue[key]) {
                     shouldReact = true;
                 }
-                obj[key] = value[key]
+                oldValue[key] = item;
             })
 
         }else {
