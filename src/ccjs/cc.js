@@ -20,10 +20,16 @@ window.cc = cc = {
         return dom.selectAll(selector)
     },
     createElement: function (tagName, id, options) {
-        return dom.createElement(tagName, id, options)
+        return dom.create(tagName, id, options)
     },
     createElementNS: function (tagName, id, options = {}) {
-        return dom.createElementNS(tagName, id, options)
+        return dom.create(tagName, id, options, true)
+    },
+    create: function (tagName, id, options) {
+        return dom.create(tagName, id, options)
+    },
+    createNS: function (tagName, id, options = {}) {
+        return dom.create(tagName, id, options, true)
     },
     setValue: function (key, value, options = {}) {
         options.reset = true;

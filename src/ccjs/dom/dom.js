@@ -13,7 +13,13 @@ var dom = {
         return document.querySelectorAll(selector);
     },
     create: function (tag, id = '', options = {}, ns) {
-        return ns?dom.createElementNS(tag, id, options):dom.createElement(tag, id, options);
+        let element = ns?dom.createElementNS(tag, id, options):dom.createElement(tag, id, options);
+        element._eventListeners = new Map();
+        element._bound = new Map();
+        element._memory = {};
+        element._isNS = false;
+        element._options = {};
+        return element;
     },
     createElement: function (tag, id = '', options = {}) {
         let element = document.createElement(tag);
@@ -32,11 +38,7 @@ var dom = {
     },
 };
 
-Element.prototype._eventListeners = new Map();
-Element.prototype._bound = new Map();
-Element.prototype._memory = {};
-Element.prototype._isNS = false;
-Element.prototype._options = {};
+
 
 Element.prototype.add = function (tag, id, options) {
     let child = dom.create(tag, id, options);
