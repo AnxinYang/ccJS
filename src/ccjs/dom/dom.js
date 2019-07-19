@@ -99,12 +99,9 @@ Element.prototype.css = function(key, value){
 
 Element.prototype.bind = function(key, fn){
     if(key) {
-        let self = this;
         this._bound.set(key, fn);
         this.classList.add('storage_' + key);
-        setTimeout(function () {
-            self._react(key, cc.getValue(key))
-        });
+        this._react(key, cc.getValue(key))
     }
     return this;
 };
