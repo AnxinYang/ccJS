@@ -40,12 +40,12 @@ var dom = {
 
 
 
-Element.prototype.add = function (tag, id, options) {
+Element.prototype.cc = function (tag, id, options) {
     let child = dom.create(tag, id, options);
     return this.addElement(child);
 };
 
-Element.prototype.addNS = function (tag, id, options) {
+Element.prototype.ccNS = function (tag, id, options) {
     let child = dom.create(tag, id, options);
     return this.addElement(child);
 };
