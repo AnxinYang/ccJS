@@ -14,12 +14,8 @@ var dom = {
     },
     create: function (tag, id = '', options = {}, ns) {
         let element = ns?dom.createElementNS(tag, id, options):dom.createElement(tag, id, options);
-        element._eventListeners = new Map();
-        element._bound = new Map();
-        element._memory = {};
-        element._isNS = false;
-        element._options = {};
-        return element;
+
+        return new ccElement(element);
     },
     createElement: function (tag, id = '', options = {}) {
         let element = document.createElement(tag);
@@ -38,81 +34,90 @@ var dom = {
     },
 };
 
+function ccElement (element){
+    this.element = element;
+    this._eventListeners = new Map();
+    this._bound = new Map();
+    this._memory = {};
+    this._isNS = false;
+    this._options = {};
+}
 
 
-Element.prototype.cc = function (tag, id, options) {
+ccElement.prototype.add = function (tag, id, options) {
     let child = dom.create(tag, id, options);
     return this.addElement(child);
 };
 
-Element.prototype.ccNS = function (tag, id, options) {
+ccElement.prototype.addNS = function (tag, id, options) {
     let child = dom.create(tag, id, options);
     return this.addElement(child);
 };
 
-Element.prototype.addElement = function (child) {
-    this.appendChild(child);
+ccElement.prototype.addElement = function (child) {
+    this.element.appendChild(child.element);
     return child
 };
 
-Element.prototype.addClass = function (className) {
-    this.classList.add(className);
+ccElement.prototype.addClass = function (className) {
+    this.element.classList.add(className);
     return this;
 };
 
-Element.prototype.removeClass = function (className) {
-    this.classList.remove(className);
+ccElement.prototype.removeClass = function (className) {
+    this.element.classList.remove(className);
     return this;
 };
 
-Element.prototype.getAttr = function(key){
-    return this.getAttribute(key);
+ccElement.prototype.getAttr = function(key){
+    return this.element.getAttribute(key);
 };
 
-Element.prototype.attr = function (key, value) {
+ccElement.prototype.attr = function (key, value) {
     this._setElement('attr', key, value);
     return this;
 };
 
-Element.prototype.getMemory = function(){
+ccElement.prototype.getMemory = function(){
     return this._memory;
 };
 
-Element.prototype.memory = function(obj){
+ccElement.prototype.memory = function(obj){
     this._memory = obj;
     return this;
 };
 
-Element.prototype.getProp = function(key){
-    return this[key];
+ccElement.prototype.getProp = function(key){
+    return this.element[key];
 };
 
-Element.prototype.prop = function (key, value) {
+ccElement.prototype.prop = function (key, value) {
     this._setElement('prop', key, value);
     return this;
 };
 
-Element.prototype.css = function(key, value){
+ccElement.prototype.css = function(key, value){
     this._setElement('css', key, value);
     return this;
 };
 
-Element.prototype.bind = function(key, fn){
+ccElement.prototype.bind = function(key, fn){
     if(key) {
         this._bound.set(key, fn);
-        this.classList.add('storage_' + key);
+        this.element.classList.add('storage_' + key);
+        this.element._react = this._react.bind(this);
         this._react(key, cc.getValue(key))
     }
     return this;
 };
-Element.prototype.unbind = function(key){
+ccElement.prototype.unbind = function(key){
     let self = this;
     this._bound.delete(key);
-    this.classList.remove('storage_' + key);
+    this.element.classList.remove('storage_' + key);
     return this;
 };
 
-Element.prototype._react = function(key, value){
+ccElement.prototype._react = function(key, value){
     let fn = this._bound.get(key);
     if(fn){
         if(fn.call(this, value, this._memory) === false){
@@ -121,47 +126,47 @@ Element.prototype._react = function(key, value){
     }
 };
 
-Element.prototype.on  = function(eventName, fn, tag = ''){
+ccElement.prototype.on  = function(eventName, fn, tag = ''){
     let self = this;
     let eventTag = eventName + tag;
     let eventHandler = this._eventListeners.get(eventTag);
     if(eventHandler){
-        this.removeEventListener(eventName, eventHandler);
+        this.element.removeEventListener(eventName, eventHandler);
         this._eventListeners.delete(eventTag);
     }
     if(fn) {
         eventHandler = function (e) {
             if(fn.call(self, e, self._memory) === false){
-                self.removeEventListener(eventName, eventHandler);
+                self.element.removeEventListener(eventName, eventHandler);
             }
         };
         this._eventListeners.set(eventTag, eventHandler);
-        this.addEventListener(eventName, eventHandler, false);
+        this.element.addEventListener(eventName, eventHandler, false);
     }
     return self;
 };
 
-Element.prototype.content = function (str) {
-    this.innerText = str;
+ccElement.prototype.content = function (str) {
+    this.element.innerText = str;
     return this;
 };
 
-Element.prototype.removeSelf = function(){
-    this.removeAllChildren();
-    if(this.remove){
-        this.remove()
+ccElement.prototype.removeSelf = function(){
+    this.element.removeAllChildren();
+    if(this.element.remove){
+        this.element.remove()
     }else{
-        this.parentNode.removeChild(this);
+        this.element.parentNode.removeChild(this);
     }
 };
 
-Element.prototype.removeAllChildren = function(){
-    while (this.firstChild) {
-        this.removeChild(this.firstChild);
+ccElement.prototype.removeAllChildren = function(){
+    while (this.element.firstChild) {
+        this.element.removeChild(this.element.firstChild);
     }
 };
 
-Element.prototype._setElement = function(type, key , value){
+ccElement.prototype._setElement = function(type, key , value){
     let self = this;
     if (key === undefined) {
         return this;
@@ -177,26 +182,26 @@ Element.prototype._setElement = function(type, key , value){
 
     switch (type) {
         case 'prop':
-            this[key] =  value;
+            this.element[key] =  value;
             break;
         case 'attr':
             if (value === false) {
-                this.removeAttribute(key)
+                this.element.removeAttribute(key)
             } else {
-                this._isNS?this.setAttributeNS(null, key, value):this.setAttribute(key, value)
+                this._isNS?this.element.setAttributeNS(null, key, value):this.element.setAttribute(key, value)
             }
             break;
         case 'css':
-            this.style[key] =  value;
+            this.element.style[key] =  value;
             break;
     }
     return this;
 }
 
-Element.prototype.isInViewport = function (options = {}) {
+ccElement.prototype.isInViewport = function (options = {}) {
     let offsetX = options.offsetX || 0;
     let offsetY = options.offsetY || 0;
-    let {x, y, width, height} = this.getBoundingClientRect(); //IE not support bottom right
+    let {x, y, width, height} = this.element.getBoundingClientRect(); //IE not support bottom right
     let x2 = x + width;
     let y2 = y + height;
     let innerWidth = window.innerWidth;
