@@ -36,6 +36,7 @@ window.cc = cc = {
         return storage.setValue(key, value, options)
     },
     cast: function (key, value, options = {}){
+        let _value = value || storage.getValue(key);
         storage.broadcast(key, value, options);
     },
     saveArray: function(key, arr = [], idkey){

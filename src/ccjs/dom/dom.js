@@ -152,7 +152,7 @@ ccElement.prototype.content = function (str) {
 };
 
 ccElement.prototype.removeSelf = function(){
-    this.element.removeAllChildren();
+    this.removeAllChildren();
     if(this.element.remove){
         this.element.remove()
     }else{
