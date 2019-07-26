@@ -50,7 +50,7 @@ ccElement.prototype.add = function (tag, id, options) {
 };
 
 ccElement.prototype.addNS = function (tag, id, options) {
-    let child = dom.create(tag, id, options);
+    let child = dom.create(tag, id, options, true);
     return this.addElement(child);
 };
 
